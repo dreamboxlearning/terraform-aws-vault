@@ -116,7 +116,7 @@ resource "aws_launch_template" "launch_template" {
   image_id      = var.ami_id
   instance_type = var.instance_type
   user_data     = var.user_data
-  key_name             = var.ssh_key_name
+  key_name      = var.ssh_key_name
   vpc_security_group_ids = concat(
     [aws_security_group.lc_security_group.id],
     var.additional_security_group_ids,
