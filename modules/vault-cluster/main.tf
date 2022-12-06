@@ -116,13 +116,16 @@ resource "aws_launch_template" "launch_template" {
   image_id      = var.ami_id
   instance_type = var.instance_type
   user_data     = var.user_data
-
-  iam_instance_profile = aws_iam_instance_profile.instance_profile.name
   key_name             = var.ssh_key_name
-  security_groups = concat(
+  vpc_security_group_ids = concat(
     [aws_security_group.lc_security_group.id],
     var.additional_security_group_ids,
   )
+  ebs_optimized = var.root_volume_ebs_optimized
+
+  iam_instance_profile {
+    name = aws_iam_instance_profile.instance_profile.name
+  }
 
   placement {
     tenancy = var.tenancy
@@ -131,8 +134,6 @@ resource "aws_launch_template" "launch_template" {
   network_interfaces {
     associate_public_ip_address = var.associate_public_ip_address
   }
-
-  ebs_optimized = var.root_volume_ebs_optimized
 
   block_device_mappings {
     device_name = "/dev/xvda"
