@@ -248,3 +248,9 @@ variable "launch_template_version" {
   type        = string
   default     = "$Latest"
 }
+
+variable "update_default_version" {
+  description = "Whether to update Default Version each update. Conflicts with default_version."
+  type        = bool
+  default     = true
+}

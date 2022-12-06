@@ -112,12 +112,13 @@ resource "aws_autoscaling_group" "autoscaling_group" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_launch_template" "launch_template" {
-  name_prefix   = "${var.cluster_name}-"
-  image_id      = var.ami_id
-  instance_type = var.instance_type
-  user_data     = var.user_data
-  key_name      = var.ssh_key_name
-  ebs_optimized = var.root_volume_ebs_optimized
+  name_prefix            = "${var.cluster_name}-"
+  image_id               = var.ami_id
+  instance_type          = var.instance_type
+  user_data              = var.user_data
+  key_name               = var.ssh_key_name
+  ebs_optimized          = var.root_volume_ebs_optimized
+  update_default_version = var.update_default_version
 
   iam_instance_profile {
     name = aws_iam_instance_profile.instance_profile.name
